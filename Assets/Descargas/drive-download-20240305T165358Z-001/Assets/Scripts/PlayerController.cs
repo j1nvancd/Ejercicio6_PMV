@@ -10,6 +10,7 @@ public class PlayerController : MonoBehaviour
     public float speed;
 
     public TextMeshProUGUI scoreText;
+    public TextMeshProUGUI tiempoText; // Referencia al texto de tiempo en el HUD
 
     private Rigidbody rb;
     
@@ -51,10 +52,10 @@ public class PlayerController : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.CompareTag("PickUp"))
-    {
-        FindObjectOfType<Spawn_Obj>().PrefabDestroyed(other.gameObject); // Llama al método PrefabDestroyed() de Spawn_Obj y pasa el objeto PickUp destruido como parámetro
-        count++;
-        scoreText.text = $"Score : {count * 125:0000}";
-    }
+        {
+            Destroy(other.gameObject);
+            count++;
+            scoreText.text = $"Score : {count * 125:0000}";
+        }
     }
 }

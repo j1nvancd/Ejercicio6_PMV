@@ -1,18 +1,19 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class Spawn_Obj : MonoBehaviour
 {
     public GameObject prefab; //Prefab a instanciar
     public float margen = 1f; //Margen para evitar los bordes del plano
-    public float tiempoParaGenerar = 59f; //Tiempo en segundos para generar nuevos prefabs
+    public float tiempoParaGenerar = 59f; //Tiempo en segundos para finalizar el juego
     public int cantidadInicial = 4; //Cantidad inicial de prefabs
     public float distanciaMinimaEntrePrefabs = 2f; //Distancia mínima entre prefabs
-    private List<GameObject> prefabsInstanciados = new List<GameObject>(); //Lista para rastrear prefabs instanciados
+    public TextMeshProUGUI tiempoText; // Referencia al texto de tiempo en el HUD
 
+    public List<GameObject> prefabsInstanciados = new List<GameObject>(); //Lista para rastrear prefabs instanciados
     private float tiempoTranscurrido = 0f;
-    private int cantidadActual = 4;
 
     // Dimensiones del plano de juego
     private float minX, maxX, minZ, maxZ;
@@ -31,16 +32,26 @@ public class Spawn_Obj : MonoBehaviour
         //Actualizar el tiempo transcurrido
         tiempoTranscurrido += Time.deltaTime;
 
-        //Si el tiempo transcurrido supera el tiempo para generar, generar nuevos prefabs
-        if (tiempoTranscurrido >= tiempoParaGenerar || prefabsInstanciados.Count == 0)
+        // Actualizar el tiempo en el HUD
+        tiempoText.text = "Tiempo: " + Mathf.RoundToInt(tiempoParaGenerar - tiempoTranscurrido).ToString();
+
+        // Verificar si todos los prefabs han sido destruidos
+        if (AreAllPrefabsDestroyed())
         {
-            tiempoTranscurrido = 0f;
-            cantidadActual++;
-            GeneratePrefabs(cantidadActual);
+            cantidadInicial ++;
+            // Generar nuevos prefabs
+            GeneratePrefabs(cantidadInicial);
+        }
+
+        // Verificar si el tiempo ha llegado a cero
+        if (tiempoTranscurrido >= tiempoParaGenerar)
+        {
+            // Salir de la aplicación o del editor
+            QuitGame();
         }
     }
 
-    //Método para calcular los límites del plano de juego
+    // Método para calcular los límites del plano de juego
     private void CalculateBounds()
     {
         //Obtener los límites del plano
@@ -54,6 +65,8 @@ public class Spawn_Obj : MonoBehaviour
     //Método para generar prefabs en posiciones aleatorias sin superponerse
     private void GeneratePrefabs(int cantidad)
     {
+         tiempoTranscurrido = 0f;
+
         //Destruir todos los prefabs existentes
         DestroyExistingPrefabs();
 
@@ -82,14 +95,7 @@ public class Spawn_Obj : MonoBehaviour
         return randomPosition;
     }
 
-    // Método llamado cuando se destruye un prefab
-    public void PrefabDestroyed(GameObject prefab)
-    {
-        prefabsInstanciados.Remove(prefab); // Remover el prefab de la lista de prefabs instanciados
-        Destroy(prefab); // Destruir el prefab
-    }
-
-    // Método para destruir todos los prefabs existentes
+    // Método para destruir todos los prefabs existentes y limpiar la lista
     private void DestroyExistingPrefabs()
     {
         foreach (GameObject existingPrefab in prefabsInstanciados)
@@ -97,5 +103,27 @@ public class Spawn_Obj : MonoBehaviour
             Destroy(existingPrefab);
         }
         prefabsInstanciados.Clear(); // Limpiar la lista de prefabs instanciados
+    }
+
+    // Método para verificar si todos los prefabs han sido destruidos
+    private bool AreAllPrefabsDestroyed()
+    {
+        foreach (GameObject prefabInstance in prefabsInstanciados)
+    {
+        if (prefabInstance != null)
+        {
+            return false; // Aún hay prefabs activos
+        }
+    }
+    return true; // Todos los prefabs han sido destruidos
+    }
+
+    private void QuitGame()
+    {
+        #if UNITY_EDITOR
+                UnityEditor.EditorApplication.isPlaying = false; // Salir del editor
+        #else
+                Application.Quit(); // Salir de la aplicación
+        #endif
     }
 }
