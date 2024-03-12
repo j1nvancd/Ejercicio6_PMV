@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     // Speed at which the player moves.
     public float speed;
 
+    public ParticleSystem coinParticles; // Referencia al sistema de partículas de la moneda
     public TextMeshProUGUI scoreText;
     public TextMeshProUGUI tiempoText; // Referencia al texto de tiempo en el HUD
 
@@ -53,6 +54,9 @@ public class PlayerController : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PickUp"))
         {
+            // Activate the particle system
+            coinParticles.Play();
+
             Destroy(other.gameObject);
             count++;
             scoreText.text = $"Score : {count * 125:0000}";
