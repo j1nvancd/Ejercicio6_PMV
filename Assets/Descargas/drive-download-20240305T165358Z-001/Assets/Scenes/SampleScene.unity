@@ -449,7 +449,6 @@ GameObject:
   - component: {fileID: 297757205}
   - component: {fileID: 297757211}
   - component: {fileID: 297757212}
-  - component: {fileID: 297757210}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -571,22 +570,6 @@ Transform:
   - {fileID: 7895241660460005004}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &297757210
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 297757204}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9318fb068f960234aa49a3cebaf6d447, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  coinParticles: {fileID: 8007631574677099134}
-  scoreText: {fileID: 511322428}
-  tiempoText: {fileID: 242162278}
 --- !u!114 &297757211
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -630,6 +613,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  coinParticles: {fileID: 8007631574677099134}
 --- !u!1 &511322426
 GameObject:
   m_ObjectHideFlags: 0
@@ -1504,7 +1488,6 @@ GameObject:
   - component: {fileID: 1367719444}
   - component: {fileID: 1367719443}
   - component: {fileID: 1367719448}
-  - component: {fileID: 1367719447}
   m_Layer: 0
   m_Name: Ground
   m_TagString: Untagged
@@ -1599,25 +1582,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1367719447
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1367719442}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 170d9f9f46aff434f9f63546e1bee7fa, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  prefab: {fileID: 6656549198336390163, guid: cd25f7ae0750d554bb8dff6e1bc21eae, type: 3}
-  margen: 1
-  tiempoParaGenerar: 59
-  cantidadInicial: 4
-  distanciaMinimaEntrePrefabs: 2
-  tiempoText: {fileID: 242162278}
-  prefabsInstanciados: []
 --- !u!114 &1367719448
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1631,8 +1595,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   prefab: {fileID: 2570363511658485986, guid: 26b1e62602ee8414cb0d4b06546bb7c4, type: 3}
-  margen: 1
   distanciaMinimaEntrePrefabs: 2
+  margen: 1
 --- !u!1 &1396587484
 GameObject:
   m_ObjectHideFlags: 0
@@ -2170,7 +2134,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tiempoText: {fileID: 242162278}
-  tiempoParaTerminar: 2
+  tiempoParaTerminar: 59
   tiempoTranscurrido: 0
   cantidadInicial: 4
   prefabsInstanciados: []

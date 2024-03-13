@@ -10,6 +10,8 @@ public class Player2 : MonoBehaviour
     private float movementX;
     private float movementY;
 
+    public ParticleSystem coinParticles; 
+
     private void Start()
     {
         rb = GetComponent<Rigidbody>();
@@ -32,6 +34,7 @@ public class Player2 : MonoBehaviour
     {
         if (other.gameObject.CompareTag("PickUp"))
         {
+            coinParticles.Play();
             Destroy(other.gameObject);
             GameManager.instance.AddScore(1);
         }

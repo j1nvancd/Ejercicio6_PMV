@@ -87,7 +87,7 @@ public class GameManager : MonoBehaviour
     //Método para actualizar el texto del score
     private void UpdateScoreText()
     {
-        scoreText.text = $"Score : {score:0000}";
+        scoreText.text = $"Score : {score * 125:0000}";
     }
 
     //Método para salir de la aplicación o del editor
