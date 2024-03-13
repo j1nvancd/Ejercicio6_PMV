@@ -3,42 +3,30 @@ using TMPro;
 
 public class spawn2 : MonoBehaviour
 {
-    //Prefab a instanciar
-    public GameObject prefab;
-    //Margen para evitar los bordes
-    public float margen = 1f;
-    //Distancia mínima entre prefabs
-    public float distanciaMinimaEntrePrefabs = 2f;
-
-    //Dimensiones del plano de juego
-    private float minX, maxX, minZ, maxZ;
+    #region Variables de los prefabs
+    public GameObject prefab; //Prefab a instanciar
+    public float distanciaMinimaEntrePrefabs = 2f; //Distancia mínima entre prefabs
+    #endregion
     
+    #region Variables del plano de spawn
+    public float margen = 1f; //Margen para evitar los bordes
+    private float minX, maxX, minZ, maxZ; //Dimensiones del plano de juego  
+    #endregion
 
     private void Start()
     {
-        //Calcular los límites del plano del juego
-        CalculateBounds();
-        //Instanciar los prefabs inniciales
-        GeneratePrefabs(GameManager.instance.cantidadInicial);
+        CalculateBounds(); //Calcular los límites del plano del juego
+        GeneratePrefabs(GameManager.instance.cantidadInicial); //Instanciar los prefabs inniciales
     }
 
     private void Update()
     {
         //Verificar si todos los prefabs han sido destruidos
         if (AreAllPrefabsDestroyed())
-        {
-            //Añade un prefab más a generar
-            GameManager.instance.cantidadInicial++;
-            //Generar nuevos prefabs
-            GeneratePrefabs(GameManager.instance.cantidadInicial);
+        {          
+            GameManager.instance.cantidadInicial++; //Añade un prefab más a generar 
+            GeneratePrefabs(GameManager.instance.cantidadInicial); //Generar nuevos prefabs
         }
-
-        //Verifica si el tiempo ha llegado a 0
-       /* if (GameManager.instance.tiempoTranscurrido >= GameManager.instance.tiempoParaTerminar)
-        {
-            //Salir del juego
-            GameManager.instance.QuitGame();
-        }*/
     }
 
     //Método para calcular los límites del plano de juego
@@ -56,8 +44,8 @@ public class spawn2 : MonoBehaviour
     private void GeneratePrefabs(int cantidad)
     {
         GameManager.instance.tiempoTranscurrido = 0f;
-        //Destruye todos los prefabs existentes (en caso de que hubiese elimina posibles fallos)
-        DestroyExistingPrefabs();
+        
+        DestroyExistingPrefabs(); //Destruye todos los prefabs existentes (en caso de que hubiese elimina posibles fallos)
 
         //Genera los nuevos prefabs
         for (int i = 0; i < cantidad; i++)

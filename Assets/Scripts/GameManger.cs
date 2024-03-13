@@ -8,25 +8,28 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager instance; //Instancia singleton del GameManager
 
-    //Variables para el tiempo
+    #region Variables para el tiempo
     public TextMeshProUGUI tiempoText; //Referencia al texto de tiempo en el HUD
     public float tiempoParaTerminar = 59f; //Tiempo en segundos para finalizar el juego
     public float tiempoTranscurrido = 0f; //Tiempo en segundos transcurrido del juego
+    #endregion
 
+    #region Variables para los prefabs
     public int cantidadInicial = 4; //Cantidad inicial  de prefabs
+    public List<GameObject> prefabsInstanciados = new List<GameObject>();  //Lista para rastrear prefabs instanciados
+    #endregion
 
-    //Lista para rastrear prefabs instanciados
-    public List<GameObject> prefabsInstanciados = new List<GameObject>();
-
-    // Variables para el score
+    #region Variables para el score
     private int score = 0;
     public TextMeshProUGUI scoreText;
+    #endregion
 
-    public GameObject endGameMenu;
+    public GameObject endGameMenu; //Menú desplegable al perder la partida
     
 
     private void Start()
     {
+        //Declaro al inicio del juego que ni el menú de fin del juego ni el tiempo esté pausado
         endGameMenu.SetActive(false);
         Time.timeScale = 1f;
     }
@@ -59,16 +62,19 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    //Menú de fin del juego
     private void showEndGameMenu()
     {
+        //Pausa el juego y activa el menú de derrota
         Time.timeScale = 0f;
         endGameMenu.SetActive(true);
     }
 
+    //Método para jugar de nuevo
     public void Retry()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-        Time.timeScale = 1f;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex); //Recarga la escena en la que se esté
+        Time.timeScale = 1f; //Setea el tiempo normal de nuevo
     }
 
     //Método para agregar puntos al score

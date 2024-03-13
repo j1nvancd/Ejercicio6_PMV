@@ -4,7 +4,6 @@ using TMPro;
 
 public class Player2 : MonoBehaviour
 {
-    //Velocidad del jugador
     public float speed;
     private Rigidbody rb;
 
