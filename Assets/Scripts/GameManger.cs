@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -20,6 +21,15 @@ public class GameManager : MonoBehaviour
     // Variables para el score
     private int score = 0;
     public TextMeshProUGUI scoreText;
+
+    public GameObject endGameMenu;
+    
+
+    private void Start()
+    {
+        endGameMenu.SetActive(false);
+        Time.timeScale = 1f;
+    }
 
     void Awake()
     {
@@ -45,8 +55,20 @@ public class GameManager : MonoBehaviour
         //Verificar si el tiempo ha llegado a cero
         if (tiempoTranscurrido >= tiempoParaTerminar)
         {    
-            QuitGame(); //Salir de la aplicación o del editor
+            showEndGameMenu();
         }
+    }
+
+    private void showEndGameMenu()
+    {
+        Time.timeScale = 0f;
+        endGameMenu.SetActive(true);
+    }
+
+    public void Retry()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        Time.timeScale = 1f;
     }
 
     //Método para agregar puntos al score

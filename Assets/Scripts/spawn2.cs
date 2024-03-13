@@ -34,11 +34,11 @@ public class spawn2 : MonoBehaviour
         }
 
         //Verifica si el tiempo ha llegado a 0
-        if (GameManager.instance.tiempoTranscurrido >= GameManager.instance.tiempoParaTerminar)
+       /* if (GameManager.instance.tiempoTranscurrido >= GameManager.instance.tiempoParaTerminar)
         {
             //Salir del juego
             GameManager.instance.QuitGame();
-        }
+        }*/
     }
 
     //Método para calcular los límites del plano de juego
